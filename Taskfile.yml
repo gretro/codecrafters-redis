@@ -23,11 +23,11 @@ tasks:
     deps:
       - install
     cmds:
-      - go test ./tests/unit/...
+      - go test -v ./tests/unit/...
 
   test:integration:
     deps:
       - install
     cmds:
-      - go test ./tests/integration/...
+      - go test -v ./tests/integration/...
       

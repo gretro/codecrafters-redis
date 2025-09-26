@@ -43,7 +43,7 @@ func Test_ParseBoolean(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			val, err := protocol.ParseBoolean([]byte(test.value))
+			val, err := protocol.ParseBoolean(test.value, nil)
 
 			if test.expectedErr == nil {
 				require.NoError(t, err, "expected no error, got %v", err)

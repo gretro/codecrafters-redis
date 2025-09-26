@@ -6,8 +6,8 @@ type SimpleError struct {
 	Message string
 }
 
-const simpleErrorPrefix = "-"
+const SIMPLE_ERROR_PREFIX = "-"
 
 func (s *SimpleError) Encode() []byte {
-	return []byte(fmt.Sprintf("%s%s%s", simpleErrorPrefix, s.Message, EOL))
+	return []byte(fmt.Sprintf("%s%s%s", SIMPLE_ERROR_PREFIX, s.Message, EOL))
 }

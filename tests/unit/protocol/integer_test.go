@@ -54,7 +54,7 @@ func Test_ParseInteger(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			val, err := protocol.ParseInteger([]byte(test.value))
+			val, err := protocol.ParseInteger(test.value, nil)
 
 			if test.expectedErr == nil {
 				require.NoError(t, err, "expected no error, got %v", err)

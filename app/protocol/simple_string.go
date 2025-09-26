@@ -1,6 +1,7 @@
 package protocol
 
 import (
+	"bufio"
 	"fmt"
 	"strings"
 )
@@ -9,16 +10,14 @@ type SimpleString struct {
 	Value string
 }
 
-const simpleStringPrefix = "+"
+const SIMPLE_STRING_PREFIX = "+"
 
-func ParseSimpleString(data []byte) (RespType, error) {
-	str := string(data)
-
-	if !strings.HasPrefix(str, simpleStringPrefix) {
+func ParseSimpleString(line string, _ *bufio.Scanner) (RespType, error) {
+	if !strings.HasPrefix(line, SIMPLE_STRING_PREFIX) {
 		return nil, fmt.Errorf("%w: invalid simple string prefix", ErrParse)
 	}
 
-	trimmed := strings.TrimPrefix(str, simpleStringPrefix)
+	trimmed := strings.TrimPrefix(line, SIMPLE_STRING_PREFIX)
 	trimmed = strings.TrimSuffix(trimmed, EOL)
 
 	if strings.Contains(trimmed, "\r") || strings.Contains(trimmed, "\n") {
@@ -29,5 +28,5 @@ func ParseSimpleString(data []byte) (RespType, error) {
 }
 
 func (s *SimpleString) Encode() []byte {
-	return []byte(fmt.Sprintf("%s%s%s", simpleStringPrefix, s.Value, EOL))
+	return fmt.Appendf(nil, "%s%s%s", SIMPLE_STRING_PREFIX, s.Value, EOL)
 }

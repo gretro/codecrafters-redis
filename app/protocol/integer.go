@@ -1,6 +1,7 @@
 package protocol
 
 import (
+	"bufio"
 	"fmt"
 	"strconv"
 	"strings"
@@ -10,15 +11,14 @@ type Integer struct {
 	Value int64
 }
 
-const integerPrefix = ":"
+const INTEGER_PREFIX = ":"
 
-func ParseInteger(data []byte) (RespType, error) {
-	str := string(data)
-	if !strings.HasPrefix(str, integerPrefix) {
+func ParseInteger(line string, _ *bufio.Scanner) (RespType, error) {
+	if !strings.HasPrefix(line, INTEGER_PREFIX) {
 		return nil, fmt.Errorf("%w: invalid integer prefix", ErrParse)
 	}
 
-	trimmed := strings.TrimPrefix(str, integerPrefix)
+	trimmed := strings.TrimPrefix(line, INTEGER_PREFIX)
 	trimmed = strings.TrimSuffix(trimmed, EOL)
 
 	value, err := strconv.ParseInt(trimmed, 10, 64)
@@ -30,5 +30,5 @@ func ParseInteger(data []byte) (RespType, error) {
 }
 
 func (i *Integer) Encode() []byte {
-	return []byte(fmt.Sprintf("%s%d%s", integerPrefix, i.Value, EOL))
+	return fmt.Appendf(nil, "%s%d%s", INTEGER_PREFIX, i.Value, EOL)
 }

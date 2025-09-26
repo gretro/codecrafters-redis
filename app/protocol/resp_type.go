@@ -1,13 +1,15 @@
 package protocol
 
+import "bufio"
+
 type RespType interface {
 	Encode() []byte
 }
 
-type TypeParser func(data []byte) (RespType, error)
+type TypeParser func(firstLine string, scanner *bufio.Scanner) (RespType, error)
 
 var typeRegistry = map[string]TypeParser{
-	booleanPrefix:      ParseBoolean,
-	integerPrefix:      ParseInteger,
-	simpleStringPrefix: ParseSimpleString,
+	BOOLEAN_PREFIX:       ParseBoolean,
+	INTEGER_PREFIX:       ParseInteger,
+	SIMPLE_STRING_PREFIX: ParseSimpleString,
 }

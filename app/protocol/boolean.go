@@ -1,24 +1,23 @@
 package protocol
 
 import (
+	"bufio"
 	"fmt"
 	"strings"
 )
 
-const booleanPrefix = "#"
+const BOOLEAN_PREFIX = "#"
 
 type Boolean struct {
 	Value bool
 }
 
-func ParseBoolean(data []byte) (RespType, error) {
-	str := string(data)
-
-	if !strings.HasPrefix(str, booleanPrefix) {
+func ParseBoolean(line string, _ *bufio.Scanner) (RespType, error) {
+	if !strings.HasPrefix(line, BOOLEAN_PREFIX) {
 		return nil, fmt.Errorf("%w: invalid boolean prefix", ErrParse)
 	}
 
-	trimmed := strings.TrimPrefix(str, booleanPrefix)
+	trimmed := strings.TrimPrefix(line, BOOLEAN_PREFIX)
 	trimmed = strings.TrimSuffix(trimmed, EOL)
 
 	isValid := false
@@ -46,5 +45,5 @@ func (b *Boolean) Encode() []byte {
 		strVal = "f"
 	}
 
-	return []byte(fmt.Sprintf("%s%s%s", booleanPrefix, strVal, EOL))
+	return fmt.Appendf(nil, "%s%s%s", BOOLEAN_PREFIX, strVal, EOL)
 }
