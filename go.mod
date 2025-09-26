@@ -1,4 +1,4 @@
-module github.com/codecrafters-io/redis-starter-go
+module github.com/gretro/codecrafters-redis
 
 go 1.24.0
 
