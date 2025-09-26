@@ -45,7 +45,7 @@ func handleConnection(l *slog.Logger, conn net.Conn) {
 			conn.Write([]byte("+PONG\r\n"))
 		} else {
 			l.Warn("Unknown command", "command", command)
-			conn.Write([]byte("-ERR unknown command '" + command + "'\r\n"))
+			// conn.Write([]byte("-ERR unknown command '" + command + "'\r\n"))
 		}
 	}
 
