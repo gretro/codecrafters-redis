@@ -7,19 +7,19 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_EncodeSimpleError(t *testing.T) {
+func Test_EncodeBulkError(t *testing.T) {
 	tests := []struct {
 		name      string
 		errorCode string
 		message   string
 		expected  string
 	}{
-		{name: "error message", errorCode: "SYNTAX", message: "error", expected: "-SYNTAX error\r\n"},
+		{name: "error", errorCode: "SYNTAX", message: "error", expected: "!12\r\nSYNTAX error\r\n"},
 	}
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			val := &protocol.SimpleError{ErrorCode: test.errorCode, Message: test.message}
+			val := &protocol.BulkError{ErrorCode: test.errorCode, Message: test.message}
 			encoded := val.Encode()
 			require.Equal(t, test.expected, string(encoded), "expected %s, got %s", test.expected, string(encoded))
 		})
