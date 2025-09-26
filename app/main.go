@@ -30,18 +30,24 @@ func main() {
 			continue
 		}
 		logger.Info("Accepted connection", "address", conn.RemoteAddr())
-		go handleConnection(conn)
+		go handleConnection(logger, conn)
 	}
 }
 
-func handleConnection(conn net.Conn) {
+func handleConnection(l *slog.Logger, conn net.Conn) {
 	defer conn.Close()
 
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan() {
 		command := scanner.Text()
+		l.Info("Received command", "command", command)
 		if strings.TrimSpace(command) == "PING" {
 			conn.Write([]byte("+PONG\r\n"))
+		} else {
+			l.Warn("Unknown command", "command", command)
+			conn.Write([]byte("-ERR unknown command '" + command + "'\r\n"))
 		}
 	}
+
+	l.Info("Closed connection", "address", conn.RemoteAddr())
 }
