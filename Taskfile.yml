@@ -1,0 +1,33 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars: {}
+
+tasks:
+  install:
+    cmds:
+      - go mod tidy
+  
+  run:
+    deps:
+      - install
+    cmds:
+      - go run app/main.go
+  
+  default:
+    cmds:
+      - task run
+
+  test:unit:
+    deps:
+      - install
+    cmds:
+      - go test ./tests/unit/...
+
+  test:integration:
+    deps:
+      - install
+    cmds:
+      - go test ./tests/integration/...
+      
