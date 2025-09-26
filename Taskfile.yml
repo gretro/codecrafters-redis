@@ -9,7 +9,7 @@ tasks:
     cmds:
       - go mod tidy
   
-  run:
+  serve:
     deps:
       - install
     cmds:
@@ -17,7 +17,7 @@ tasks:
   
   default:
     cmds:
-      - task run
+      - task serve
 
   test:unit:
     deps:
@@ -25,7 +25,7 @@ tasks:
     cmds:
       - go test -v ./tests/unit/...
 
-  test:integration:
+  test:int:
     deps:
       - install
     cmds:
