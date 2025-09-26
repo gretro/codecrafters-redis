@@ -19,3 +19,5 @@ event loops, the Redis protocol and more.
 | `task serve` | Runs the back-end project |
 | `task test:unit` | Runs the unit tests |
 | `task test:int` | Runs the integration tests. Note the server must be running at the same time. |
+| `task lint` | Runs the linter |
+| `task lint:fix` | Auto-fixes the lint errors that can be fixed |
