@@ -27,10 +27,10 @@ func (p *RespParser) Scan() (RespType, error) {
 		return nil, nil
 	}
 
-	identifier := string(firstLine[0])
-	parser, ok := typeRegistry[identifier]
-	if !ok {
-		return nil, fmt.Errorf("%w: unknown first byte", ErrParse)
+	typeByte := string(firstLine[0])
+	parser, err := ResolveTypeParser(typeByte)
+	if err != nil {
+		return nil, fmt.Errorf("%w: %w", ErrParse, err)
 	}
 
 	return parser(firstLine, p.scanner)

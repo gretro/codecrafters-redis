@@ -1,0 +1,65 @@
+version: "2"
+
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+
+linters-settings:
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/gretro/codecrafters-redis)
+  gofmt:
+    simplify: true
+  goimports:
+    local-prefixes: github.com/gretro/codecrafters-redis
+  govet:
+    check-shadowing: true
+    settings:
+      printf:
+        funcs:
+          - (github.com/gretro/codecrafters-redis/app/protocol.*).Errorf
+          - (github.com/gretro/codecrafters-redis/app/protocol.*).Logf
+  misspell:
+    locale: US
+  nolintlint:
+    allow-leading-space: true
+    allow-unused: false
+    require-explanation: false
+    require-specific: false
+
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - goimports
+
+linters:
+  disable-all: true
+  enable:
+    - bodyclose
+    - dogsled
+    - dupl
+    - errcheck
+    - exhaustive
+    - funlen
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - goprintffuncname
+    - gosec
+    - govet
+    - ineffassign
+    - mnd
+    - misspell
+    - nakedret
+    - noctx
+    - nolintlint
+    - staticcheck
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+

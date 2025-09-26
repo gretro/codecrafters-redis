@@ -42,9 +42,9 @@ func ParseArray(firstLine string, scanner *bufio.Scanner) (RespType, error) {
 		}
 
 		typeByte := line[0]
-		parser, ok := primitivesRegistry[string(typeByte)]
-		if !ok {
-			return nil, fmt.Errorf("%w: unknown first byte in array: %s at line %d", ErrParse, string(typeByte), actualLength)
+		parser, err := ResolvePrimitiveTypeParser(string(typeByte))
+		if err != nil {
+			return nil, fmt.Errorf("%w: error parsing value at line %d: %w", ErrParse, actualLength, err)
 		}
 
 		value, err := parser(line, scanner)

@@ -8,10 +8,13 @@ import (
 )
 
 func TestPing(t *testing.T) {
-	client, err := NewTcpClient()
+	client, err := NewTCPClient(t.Context())
 	require.NoError(t, err, "failed to create TCP client")
 
-	defer client.Close()
+	defer func() {
+		err := client.Close()
+		require.NoError(t, err, "failed to close TCP client")
+	}()
 
 	_, err = client.Write([]byte("PING\r\n"))
 	require.NoError(t, err, "failed to write to TCP client")
@@ -23,10 +26,13 @@ func TestPing(t *testing.T) {
 }
 
 func TestManyPings(t *testing.T) {
-	client, err := NewTcpClient()
+	client, err := NewTCPClient(t.Context())
 	require.NoError(t, err, "failed to create TCP client")
 
-	defer client.Close()
+	defer func() {
+		err := client.Close()
+		require.NoError(t, err, "failed to close TCP client")
+	}()
 
 	_, err = client.Write([]byte("PING\r\nPING\r\n"))
 	require.NoError(t, err, "failed to write to TCP client")
