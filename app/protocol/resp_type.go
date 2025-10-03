@@ -8,6 +8,7 @@ import (
 )
 
 type RespType interface {
+	fmt.Stringer
 	Encode() []byte
 }
 

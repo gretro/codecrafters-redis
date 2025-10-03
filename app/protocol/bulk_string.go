@@ -58,3 +58,7 @@ func ParseBulkString(firstLine string, scanner *bufio.Scanner) (RespType, error)
 func (b *BulkString) Encode() []byte {
 	return fmt.Appendf(nil, "%s%d\r\n%s\r\n", BULK_STRING_PREFIX, len(b.Value), b.Value)
 }
+
+func (b *BulkString) String() string {
+	return fmt.Sprintf("`%s`", b.Value)
+}

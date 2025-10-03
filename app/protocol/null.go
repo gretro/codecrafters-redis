@@ -22,3 +22,7 @@ func ParseNull(firstLine string, scanner *bufio.Scanner) (RespType, error) {
 func (n *Null) Encode() []byte {
 	return fmt.Appendf(nil, "%s%s", NULL_PREFIX, EOL)
 }
+
+func (n *Null) String() string {
+	return "NULL"
+}

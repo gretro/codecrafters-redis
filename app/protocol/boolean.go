@@ -47,3 +47,7 @@ func (b *Boolean) Encode() []byte {
 
 	return fmt.Appendf(nil, "%s%s%s", BOOLEAN_PREFIX, strVal, EOL)
 }
+
+func (b *Boolean) String() string {
+	return fmt.Sprintf("Boolean(%v)", b.Value)
+}

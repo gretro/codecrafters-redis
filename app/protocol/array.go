@@ -80,3 +80,14 @@ func (a *Array) Encode() []byte {
 
 	return fmt.Appendf(nil, "%s%s", lengthLine, encodedValues.String())
 }
+
+func (a *Array) String() string {
+	vals := make([]string, len(a.Values))
+	for i, value := range a.Values {
+		vals[i] = fmt.Sprintf("%s", value.String())
+	}
+
+	joined := strings.Join(vals, ", ")
+
+	return fmt.Sprintf("[%s]", joined)
+}

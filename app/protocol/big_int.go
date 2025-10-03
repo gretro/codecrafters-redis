@@ -32,3 +32,7 @@ func ParseBigInt(firstLine string, scanner *bufio.Scanner) (RespType, error) {
 func (b *BigInt) Encode() []byte {
 	return fmt.Appendf(nil, "%s%s%s", BIG_NUMBER_PREFIX, b.Value.Text(10), EOL)
 }
+
+func (b *BigInt) String() string {
+	return fmt.Sprintf("BigInt(%s)", b.Value.Text(10))
+}

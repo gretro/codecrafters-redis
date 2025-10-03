@@ -32,3 +32,7 @@ func ParseDouble(firstLine string, scanner *bufio.Scanner) (RespType, error) {
 func (d *Double) Encode() []byte {
 	return fmt.Appendf(nil, "%s%G%s", DOUBLE_PREFIX, d.Value, EOL)
 }
+
+func (d *Double) String() string {
+	return fmt.Sprintf("Float64(%G)", d.Value)
+}

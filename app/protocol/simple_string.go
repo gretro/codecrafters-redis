@@ -30,3 +30,7 @@ func ParseSimpleString(line string, _ *bufio.Scanner) (RespType, error) {
 func (s *SimpleString) Encode() []byte {
 	return fmt.Appendf(nil, "%s%s%s", SIMPLE_STRING_PREFIX, s.Value, EOL)
 }
+
+func (s *SimpleString) String() string {
+	return fmt.Sprintf("'%s'", s.Value)
+}

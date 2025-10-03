@@ -32,3 +32,7 @@ func ParseInteger(line string, _ *bufio.Scanner) (RespType, error) {
 func (i *Integer) Encode() []byte {
 	return fmt.Appendf(nil, "%s%d%s", INTEGER_PREFIX, i.Value, EOL)
 }
+
+func (i *Integer) String() string {
+	return fmt.Sprintf("Int64(%d)", i.Value)
+}
